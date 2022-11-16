@@ -1,13 +1,9 @@
-from transformers import pipeline
-import torch
-
+from allennlp.predictors.predictor import Predictor
 # Init is ran on server startup
 # Load your model to GPU as a global variable here using the variable name "model"
 def init():
     global model
-    
-    device = 0 if torch.cuda.is_available() else -1
-    model = pipeline('fill-mask', model='bert-base-uncased', device=device)
+    model = Predictor.from_path("https://storage.googleapis.com/allennlp-public-models/coref-spanbert-large-2021.03.10.tar.gz")
 
 # Inference is ran for every server call
 # Reference your preloaded global model variable here.
@@ -20,7 +16,9 @@ def inference(model_inputs:dict) -> dict:
         return {'message': "No prompt provided"}
     
     # Run the model
-    result = model(prompt)
+    result = model.predict(
+    document=prompt
+)
 
     # Return the results as a dictionary
     return result
