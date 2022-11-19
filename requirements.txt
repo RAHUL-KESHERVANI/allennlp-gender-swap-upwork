@@ -1,5 +1,6 @@
 sanic==22.6.2
 transformers
+tensorboard
 accelerate
 allennlp
 allennlp_models
