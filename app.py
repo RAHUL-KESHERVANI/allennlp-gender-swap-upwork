@@ -18,7 +18,7 @@ def inference(model_inputs:dict) -> dict:
     # Run the model
     result = model.predict(
     document=prompt
-)
+    )
 
     # Return the results as a dictionary
     return result
